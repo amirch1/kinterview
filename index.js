@@ -1,7 +1,7 @@
 const http = require('http');
-const server = http.createServer();
+const index = http.createServer();
 
-server.on('request', (req, res) => {
+index.on('request', (req, res) => {
     if (req.method == 'POST') {
         let body = '';
         req.on('data', function (data) {
@@ -62,4 +62,4 @@ server.on('request', (req, res) => {
 
 });
 
-server.listen(8080);
+index.listen(8080);
