@@ -24,7 +24,7 @@ index.on('request', (req, res) => {
                                 firstName: 'Bobo',
                                 lastName: 'Cohen'
                             },
-                            token: 'fake-user-1'
+                            userToken: 'fake-user-1'
                         }));
                     } else if (post['phoneNumber'] === '003' && post['password'] === '1234') {
                         res.writeHead(200, {'Content-Type': 'application/json'});
@@ -38,19 +38,34 @@ index.on('request', (req, res) => {
                         }));
                     } else {
                         res.writeHead(400, {'Content-Type': 'application/json'});
-                        res.end();
+                        res.end(JSON.stringify({
+                            status: 'failure'
+                        }));
                     }
                     break;
                 case '/isLogged':
-                    if (post === 'fake-user-1' || post === 'fake-user-2') {
+                    if (post === 'fake-user-1') {
                         res.writeHead(200, {'Content-Type': 'application/json'});
                         res.end(JSON.stringify({
-                            status: 'success'
+                            status: 'success',
+                            user: {
+                                firstName: 'Bobo',
+                                lastName: 'Cohen'
+                            }
+                        }));
+                    } else if (post === 'fake-user-2') {
+                        res.writeHead(200, {'Content-Type': 'application/json'});
+                        res.end(JSON.stringify({
+                            status: 'success',
+                            user: {
+                                firstName: 'Yankale',
+                                lastName: 'Shor'
+                            }
                         }));
                     } else {
                         res.writeHead(200, {'Content-Type': 'application/json'});
                         res.end(JSON.stringify({
-                            status: 'error'
+                            status: 'failure'
                         }));
                     }
                 default:
