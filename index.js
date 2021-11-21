@@ -34,7 +34,7 @@ index.on('request', (req, res) => {
                                 firstName: 'Yankale',
                                 lastName: 'Shor'
                             },
-                            token: 'fake-user-2'
+                            userToken: 'fake-user-2'
                         }));
                     } else {
                         res.writeHead(400, {'Content-Type': 'application/json'});
