@@ -34,7 +34,7 @@ index.on('request', (req, res) => {
                                 firstName: 'Yankale',
                                 lastName: 'Shor'
                             },
-                            userToken: 'fake-user-2'
+                            userToken: 'fake-user-3'
                         }));
                     } else {
                         res.writeHead(400, {'Content-Type': 'application/json'});
@@ -51,16 +51,18 @@ index.on('request', (req, res) => {
                             user: {
                                 firstName: 'Bobo',
                                 lastName: 'Cohen'
-                            }
+                            },
+                            userToken: 'fake-user-1'
                         }));
-                    } else if (post === 'fake-user-2') {
+                    } else if (post === 'fake-user-3') {
                         res.writeHead(200, {'Content-Type': 'application/json'});
                         res.end(JSON.stringify({
                             status: 'success',
                             user: {
                                 firstName: 'Yankale',
                                 lastName: 'Shor'
-                            }
+                            },
+                            userToken: 'fake-user-3'
                         }));
                     } else {
                         res.writeHead(200, {'Content-Type': 'application/json'});
