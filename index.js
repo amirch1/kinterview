@@ -4,12 +4,6 @@ const index = http.createServer();
 index.on('request', (req, res) => {
     if (req.method == 'POST') {
         let body = '';
-        res.writeHead(200, {"Content-Type": "application/json"});
-        res.end(JSON.stringify({
-            status: 'success',
-            message: "test",
-            body: req.body
-        }));
         req.on('data', function (data) {
             body += data;
             // Too much POST data, kill the connection!
