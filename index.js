@@ -6,6 +6,7 @@ index.on('request', (req, res) => {
         "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Credentials": true,
         "Access-Control-Allow-Methods": "OPTIONS, POST, GET",
+        "Access-Control-Expose-Headers": "*",
         "Access-Control-Allow-Headers": "Origin,X-Requested-With,Content-Type,Accept,content-type,application/json",
         "Content-Type": "application/json"
     };
