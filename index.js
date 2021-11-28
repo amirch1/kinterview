@@ -17,6 +17,16 @@ index.on('request', (req, res) => {
     }
 
     if (req.method == 'POST') {
+        res.writeHead(200, headers);
+        res.end(JSON.stringify({
+            status: 'success',
+            user: {
+                firstName: 'test',
+                lastName: 'test'
+            },
+            userToken: 'fake-user-1'
+        }));
+        /*
         let body = '';
         req.on('data', function (data) {
             body += data;
@@ -88,7 +98,7 @@ index.on('request', (req, res) => {
                     res.writeHead(404);
                     res.end();
             }
-        });
+        });*/
     }
 
 });
