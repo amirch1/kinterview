@@ -12,12 +12,17 @@ index.on('request', (req, res) => {
                 req.connection.destroy();
         });
         req.on('end', function () {
+            const headers = {
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Methods": "OPTIONS, POST, GET",
+                "Content-Type": "application/json"
+            };
             body = body.trim();
             const post = JSON.parse(body);
             switch(req.url) {
                 case '/login':
                     if (post['phoneNumber'] === '001' && post['password'] === '1234') {
-                        res.writeHead(200, {'Content-Type': 'application/json'});
+                        res.writeHead(200, headers);
                         res.end(JSON.stringify({
                             status: 'success',
                             user: {
@@ -27,7 +32,7 @@ index.on('request', (req, res) => {
                             userToken: 'fake-user-1'
                         }));
                     } else if (post['phoneNumber'] === '003' && post['password'] === '1234') {
-                        res.writeHead(200, {'Content-Type': 'application/json'});
+                        res.writeHead(200, headers);
                         res.end(JSON.stringify({
                             status: 'success',
                             user: {
@@ -37,7 +42,7 @@ index.on('request', (req, res) => {
                             userToken: 'fake-user-3'
                         }));
                     } else {
-                        res.writeHead(400, {'Content-Type': 'application/json'});
+                        res.writeHead(400, headers);
                         res.end(JSON.stringify({
                             status: 'failure'
                         }));
@@ -45,7 +50,7 @@ index.on('request', (req, res) => {
                     break;
                 case '/isLogged':
                     if (post === 'fake-user-1') {
-                        res.writeHead(200, {'Content-Type': 'application/json'});
+                        res.writeHead(200, headers);
                         res.end(JSON.stringify({
                             status: 'success',
                             user: {
@@ -55,7 +60,7 @@ index.on('request', (req, res) => {
                             userToken: 'fake-user-1'
                         }));
                     } else if (post === 'fake-user-3') {
-                        res.writeHead(200, {'Content-Type': 'application/json'});
+                        res.writeHead(200, headers);
                         res.end(JSON.stringify({
                             status: 'success',
                             user: {
@@ -65,7 +70,7 @@ index.on('request', (req, res) => {
                             userToken: 'fake-user-3'
                         }));
                     } else {
-                        res.writeHead(200, {'Content-Type': 'application/json'});
+                        res.writeHead(200, headers);
                         res.end(JSON.stringify({
                             status: 'failure'
                         }));
