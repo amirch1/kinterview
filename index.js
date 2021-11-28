@@ -2,6 +2,20 @@ const http = require('http');
 const index = http.createServer();
 
 index.on('request', (req, res) => {
+    const headers = {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Credentials": true,
+        "Access-Control-Allow-Methods": "OPTIONS, POST, GET",
+        "Access-Control-Allow-Headers": "Origin,X-Requested-With,Content-Type,Accept,content-type,application/json",
+        "Content-Type": "application/json"
+    };
+
+    if (req.method === 'OPTIONS') {
+        res.writeHead(204, headers);
+        res.end();
+        return;
+    }
+
     if (req.method == 'POST') {
         let body = '';
         req.on('data', function (data) {
@@ -12,13 +26,6 @@ index.on('request', (req, res) => {
                 req.connection.destroy();
         });
         req.on('end', function () {
-            const headers = {
-                "Access-Control-Allow-Origin": "*",
-                "Access-Control-Allow-Credentials": true,
-                "Access-Control-Allow-Methods": "OPTIONS, POST, GET",
-                "Access-Control-Allow-Headers": "Origin,X-Requested-With,Content-Type,Accept,content-type,application/json",
-                "Content-Type": "application/json"
-            };
             body = body.trim();
             const post = JSON.parse(body);
             switch(req.url) {
