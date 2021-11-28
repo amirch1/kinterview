@@ -100,8 +100,7 @@ index.on('request', (req, res) => {
             }
         });*/
     }
-    res.writeHead(405, headers);
-    res.end(`${req.method} is not allowed for the request.`);
+
 });
 
 index.listen(process.env.PORT || 8080);
