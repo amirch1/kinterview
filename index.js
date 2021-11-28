@@ -4,10 +4,6 @@ const index = http.createServer();
 index.on('request', (req, res) => {
     if (req.method == 'POST') {
         let body = '';
-        res.header("Access-Control-Allow-Origin", '*');
-        res.header("Access-Control-Allow-Credentials", true);
-        res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-        res.header("Access-Control-Allow-Headers", 'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json');
         req.on('data', function (data) {
             body += data;
             // Too much POST data, kill the connection!
@@ -16,12 +12,19 @@ index.on('request', (req, res) => {
                 req.connection.destroy();
         });
         req.on('end', function () {
+            const headers = {
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Credentials": true,
+                "Access-Control-Allow-Methods": "OPTIONS, POST, GET",
+                "Access-Control-Allow-Headers": "Origin,X-Requested-With,Content-Type,Accept,content-type,application/json",
+                "Content-Type": "application/json"
+            };
             body = body.trim();
             const post = JSON.parse(body);
             switch(req.url) {
                 case '/login':
                     if (post['phoneNumber'] === '001' && post['password'] === '1234') {
-                        res.writeHead(200);
+                        res.writeHead(200, headers);
                         res.end(JSON.stringify({
                             status: 'success',
                             user: {
@@ -31,7 +34,7 @@ index.on('request', (req, res) => {
                             userToken: 'fake-user-1'
                         }));
                     } else if (post['phoneNumber'] === '003' && post['password'] === '1234') {
-                        res.writeHead(200);
+                        res.writeHead(200, headers);
                         res.end(JSON.stringify({
                             status: 'success',
                             user: {
@@ -41,7 +44,7 @@ index.on('request', (req, res) => {
                             userToken: 'fake-user-3'
                         }));
                     } else {
-                        res.writeHead(400);
+                        res.writeHead(400, headers);
                         res.end(JSON.stringify({
                             status: 'failure'
                         }));
@@ -49,7 +52,7 @@ index.on('request', (req, res) => {
                     break;
                 case '/isLogged':
                     if (post === 'fake-user-1') {
-                        res.writeHead(200);
+                        res.writeHead(200, headers);
                         res.end(JSON.stringify({
                             status: 'success',
                             user: {
@@ -59,7 +62,7 @@ index.on('request', (req, res) => {
                             userToken: 'fake-user-1'
                         }));
                     } else if (post === 'fake-user-3') {
-                        res.writeHead(200);
+                        res.writeHead(200, headers);
                         res.end(JSON.stringify({
                             status: 'success',
                             user: {
@@ -69,7 +72,7 @@ index.on('request', (req, res) => {
                             userToken: 'fake-user-3'
                         }));
                     } else {
-                        res.writeHead(200);
+                        res.writeHead(200, headers);
                         res.end(JSON.stringify({
                             status: 'failure'
                         }));
