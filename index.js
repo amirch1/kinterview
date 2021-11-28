@@ -2,19 +2,22 @@ const http = require('http');
 const index = http.createServer();
 
 index.on('request', (req, res) => {
-
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET, POST');
-    res.setHeader('Content-Type', 'application/json');
+    const headers = {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Credentials": true,
+        "Access-Control-Allow-Methods": "OPTIONS, POST, GET",
+        "Access-Control-Allow-Headers": "Origin,X-Requested-With,Content-Type,Accept,content-type,application/json",
+        "Content-Type": "application/json"
+    };
 
     if (req.method === 'OPTIONS') {
-        res.writeHead(204);
+        res.writeHead(204, headers);
         res.end();
         return;
     }
 
-    if (req.method === 'POST') {
-        res.writeHead(200);
+    if (req.method == 'POST') {
+        res.writeHead(200, headers);
         res.end(JSON.stringify({
             status: 'success',
             user: {
@@ -97,9 +100,8 @@ index.on('request', (req, res) => {
             }
         });*/
     }
-    res.writeHead(405);
+    res.writeHead(405, headers);
     res.end(`${req.method} is not allowed for the request.`);
-
 });
 
 index.listen(process.env.PORT || 8080);
